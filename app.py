@@ -3,9 +3,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import requests
 from dotenv import load_dotenv
 import logging
-
 load_dotenv()
-
 app = Flask(__name__, static_folder='static')
 
 PDF_SOURCE_IDS = {
@@ -46,6 +44,7 @@ def chat_with_pdf(source_id, user_message):
         return response.json()['content']
     else:
         print('Status:', response.status_code)
+        print('Error:', response.text)
         print('Error:', response.text)
         return None
 
