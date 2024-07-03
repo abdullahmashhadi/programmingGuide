@@ -22,11 +22,17 @@
       }
       .bot-response {
         text-align: left;
+        position: relative;
       }
       .footer {
         margin-top: 20px;
         font-size: 0.9em;
         text-align: center;
+      }
+      .speak-button {
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
       }
     </style>
   </head>
@@ -66,7 +72,9 @@
             </button>
           </div>
         </form>
-        <div id="response" class="bot-response mt-3 border p-3"></div>
+        <div id="response" class="bot-response mt-3 border p-3">
+          <!-- Bot's response will be inserted here -->
+        </div>
         <div class="footer">
           <p><strong>Developed at HPC Lab SEECS</strong></p>
           <p>
@@ -81,6 +89,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
+      let isSpeaking = false;
+      let speechInstance;
+
+      // Function to handle text-to-speech
+      const handleSpeech = (textToSpeak) => {
+        if ("speechSynthesis" in window) {
+          if (isSpeaking) {
+            window.speechSynthesis.cancel();
+            isSpeaking = false;
+          } else {
+            window.speechSynthesis.cancel();
+            speechInstance = new SpeechSynthesisUtterance(textToSpeak);
+            speechInstance.lang = "en-US";
+            speechInstance.volume = 1;
+            speechInstance.rate = 1;
+            speechInstance.pitch = 1;
+            window.speechSynthesis.speak(speechInstance);
+            isSpeaking = true;
+          }
+        }
+      };
+
+      // Function to toggle speech on button click
+      const toggleSpeech = () => {
+        const botResponse = document.getElementById("resp").textContent.trim();
+        if (botResponse) {
+          handleSpeech(botResponse);
+        }
+      };
+
+      // Function to send query
       async function sendQuery() {
         const bot = document.getElementById("bot-select").value;
         const userInput = document.getElementById("user-input").value;
@@ -103,12 +142,23 @@
           });
 
           const data = await response.json();
-          responseDiv.innerHTML = `<strong>BOT:</strong> ${data.answer}`;
+          responseDiv.innerHTML = `<strong>BOT:</strong> 
+          <span id="resp">${data.answer}</span>`;
+
+          // Enable Speak Button when response is received
+          const speakButton = document.createElement("button");
+          speakButton.type = "button";
+          speakButton.className = "btn btn-sm btn-success speak-button";
+          speakButton.textContent = "Speak";
+          speakButton.onclick = toggleSpeech;
+
+          responseDiv.appendChild(speakButton);
         } catch (error) {
           responseDiv.innerHTML = "Error: " + error.message;
         }
       }
 
+      // Event listener for Enter key press in input field
       document
         .getElementById("user-input")
         .addEventListener("keypress", function (event) {

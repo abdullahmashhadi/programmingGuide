@@ -10,7 +10,6 @@ app = Flask(__name__, static_folder='static')
 
 PDF_SOURCE_IDS = {
     "c": "src_ywH6cZbn1SL1zphBBZBj9",
-    # "cpp": "C++.Primer.5th.Edition_2013.pdf",
     "python": "src_6mYivL31UcohIP72KZlGK",
     "java": "src_T64gaP8UcDeBeBgE5y9GW",
     "javascript": "src_as1Gmejb6dRtbuW3ZHbri"
@@ -45,8 +44,7 @@ def chat_with_pdf(source_id, user_message):
     if response.status_code == 200:
         return response.json()['content']
     else:
-        print('Status:', response.status_code)
-        print('Error:', response.text)
+        logging.error(f"Error from API: {response.status_code} {response.text}")
         return None
 
 @app.route('/')
@@ -65,6 +63,10 @@ def chat():
 
     answer = chat_with_pdf(source_id, user_input)
     if answer:
+        # Return the answer as JSON response
         return jsonify({'answer': answer})
     else:
         return jsonify({'answer': 'An error occurred while processing your request.'}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
