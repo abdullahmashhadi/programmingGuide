@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- "config": {"runtime": "python3.6"} -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -67,6 +66,7 @@
           </div>
         </form>
         <div id="response" class="bot-response mt-3 border p-3"></div>
+        <audio id="audio-response" controls style="display: none"></audio>
         <div class="footer">
           <p><strong>Developed at HPC Lab SEECS</strong></p>
           <p>
@@ -91,6 +91,7 @@
         }
 
         const responseDiv = document.getElementById("response");
+        const audioResponse = document.getElementById("audio-response");
         responseDiv.innerHTML = "Loading...";
 
         try {
@@ -104,6 +105,11 @@
 
           const data = await response.json();
           responseDiv.innerHTML = `<strong>BOT:</strong> ${data.answer}`;
+          if (data.audioPath) {
+            audioResponse.src = data.audioPath;
+            audioResponse.style.display = "block";
+            audioResponse.play();
+          }
         } catch (error) {
           responseDiv.innerHTML = "Error: " + error.message;
         }
