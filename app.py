@@ -7,12 +7,15 @@ import logging
 load_dotenv()
 
 app = Flask(__name__)
-
+c_id=os.getenv("C_SRC_ID")
+python_id=os.getenv("PYTHON_SRC_ID")
+java_id=os.getenv("JAVA_SRC_ID")
+javascript_id=os.getenv("JAVASCRIPT_SRC_ID")
 PDF_SOURCE_IDS = {
-    "c": "src_ywH6cZbn1SL1zphBBZBj9",
-    "python": "src_6mYivL31UcohIP72KZlGK",
-    "java": "src_T64gaP8UcDeBeBgE5y9GW",
-    "javascript": "src_as1Gmejb6dRtbuW3ZHbri"
+    "c": c_id,
+    "python": python_id,
+    "java": java_id,
+    "javascript": javascript_id
 }
 
 def chat_with_pdf(source_id, user_message):
