@@ -1,12 +1,12 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template
 import requests
 from dotenv import load_dotenv
 import logging
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__)
 
 PDF_SOURCE_IDS = {
     "c": "src_ywH6cZbn1SL1zphBBZBj9",
@@ -49,7 +49,7 @@ def chat_with_pdf(source_id, user_message):
 
 @app.route('/')
 def index():
-    return send_from_directory(app.static_folder, 'index.html')
+    return render_template('index.html')
 
 @app.route('/chat', methods=['POST'])
 def chat():

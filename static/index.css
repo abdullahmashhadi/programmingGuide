@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.header img {
+  max-width: 150px;
+  height: auto;
+}
+
+.header h1 {
+  margin: 20px 0;
+}
+
+.bot-response {
+  text-align: left;
+  position: relative;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.speak-button {
+  position: absolute;
+  bottom: 6px;
+  right: 10px;
+}

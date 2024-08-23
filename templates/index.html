@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programming Guide</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/index.css" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="header text-center">
+        <img src="/static/image.jpg" alt="" />
+        <h1>PROGRAMMING GUIDE</h1>
+      </div>
+      <div id="container" class="mt-4">
+        <form id="query-form">
+          <div class="form-group">
+            <label for="bot-select">Select programming language:</label>
+            <select id="bot-select" class="form-control">
+              <option value="c">C++</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="javascript">JavaScript</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>User Query:</label>
+            <input
+              type="text"
+              id="user-input"
+              class="form-control"
+              placeholder="Enter your query"
+            />
+          </div>
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-sm btn-primary"
+              onclick="sendQuery()"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+        <div id="response" class="bot-response mt-3 border p-3">
+          <!-- Bot's response will be inserted here -->
+        </div>
+        <div class="footer">
+          <p><strong>Developed at HPC Lab SEECS</strong></p>
+          <p>
+            This is the alpha version of this software. For any issue report
+            <a href="https://drive.google.com" target="_blank">here</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../static/index.js"></script>
+  </body>
+</html>
